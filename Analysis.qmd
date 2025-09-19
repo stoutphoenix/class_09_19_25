@@ -1,0 +1,38 @@
+---
+title: "09_19_25_Activity"
+format: html
+editor: visual
+---
+
+## An Analysis on Driver Deaths in Great Britain Before and After Seat Belt Legislation
+
+This document provides an insight on driver deaths in Great Britain from 1969 to 1984.
+
+```{r}
+# Load dataset
+df <- data.frame(as.matrix(Seatbelts),date = time(Seatbelts))  # Convert Time Series to data frame
+summary(df)
+```
+
+```{r}
+hist(df$DriversKilled, breaks = 20, xlab='Drivers Killed', ylab= 'Frequency', main='Distribution of Monthly Driver Deaths')
+```
+
+This histogram shows us the distribution of monthly driver deaths. From the data summary we know the mean of this distribution is 122.8. Next we will see how advances in car safety technology decreased the number of monthly driver deaths over time.
+
+```{r}
+plot(df$date, df$DriversKilled, xlab='Year', ylab='Drivers Killed', main='Driver Deaths in Great Britain')
+```
+
+An interesting aspect of this data set is it captures the year seat belts became mandatory by law in Great Britain (1983). We can visualize this by coloring points differently in our plot.
+
+```{r}
+plot(df$date, df$DriversKilled, col = (df$law +2), ylab="Drivers Killed", xlab= 'Year', main='Driver Deaths in Great Britain')
+```
+
+```{r}
+mean(df$DriversKilled[df$date>=1982])
+mean(df$DriversKilled[df$date<1982])
+```
+
+While the mean of the deaths lower after the law goes into effect, there is too much noise and variation to decisively tell. Further analysis would be required to determine statistically significant correlation.
